@@ -10,14 +10,14 @@ return [
             // true| false | 'allow_no_handlers'
             'default_middleware' => true,
             'middleware' => [
-//                ['id' => '', 'arguments' => []],
+//                ['id' => '', class => '', 'arguments' => []],
             ],
         ],
     ],
 
     'transports' => [
         'async' => [
-            'dsn' => env('MESSENGER_TRANSPORT_DSN'),
+            'dsn' => env('MESSENGER_TRANSPORT_DSN', 'redis://localhost:6379/messages'),
             // Service of a custom serializer to use.
             'serializer' => null,
             'options' => [],
@@ -54,16 +54,12 @@ return [
     'serializer' => [
         // Service to use as the default serializer for the transports.
         'default_serializer' => 'messenger.transport.native_php_serializer',
-        'symfony_serializer' => [
-            // Serialization format for the messenger.transport.symfony_serializer service (which is not the serializer used by default).
-            'format' => 'json',
-            // Context array for the messenger.transport.symfony_serializer service (which is not the serializer used by default).
-            'context' => [],
-        ],
     ],
 
     'routing' => [
         // requires at least one element
-        'senders' => []
+        '*' => [
+            'senders' => [],
+        ],
     ],
 ];
